@@ -30,4 +30,15 @@ public interface VisitRepository extends CrudRepository<Visit, Long>, JpaSpecifi
 
 	@Query(value = "SELECT * FROM visits v WHERE v.visit_no = ?1", nativeQuery = true)
 	Visit findByVisitNo(String visitNo);
+
+	@Query(value = "SELECT * from visits v WHERE v.order_status = 'CM' AND v.order_no = ?1 AND v.ris_id = ?2 AND v.prime_study = ?3", nativeQuery = true)
+	List<Visit> findByOrderNoAndRisIdAndPrimeStudy(long orderNo, Long risId, boolean isPrimeStudy);
+
+
+	@Query(value = "SELECT * from visits v WHERE " + " v.order_no = ?1 AND " + " v.ris_id = ?2 AND "
+			+ " v.prime_study = ?3", nativeQuery = true)
+	String getExamCodesByRisIdAndOrderNo(Long risId, Long orderNo);
+
+	@Query(value = "SELECT * FROM visits v WHERE ris_id=?1 AND v.order_no =?2", nativeQuery = true)
+	List<Visit> findByRisIdAndOrderNo(Long risId, Long orderNo);
 }
