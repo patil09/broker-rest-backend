@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.radianbroker.entity.User;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
@@ -17,4 +19,14 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
 	User findByUserId(Long userId);
 
+	@Query(value = "SELECT u.* FROM  users u, "
+			+ "user_roles ur, "
+			+ "roles r  "
+			+ "where  "
+			+ "u.user_id=ur.user_id AND "
+			+ " ur.role_id = r.role_id AND "
+			+ " u.status=true AND  "
+			+ " r.status=true AND  "
+			+ " r.name=?1", nativeQuery = true)
+	List<User> findAllByRole(String role);
 }
