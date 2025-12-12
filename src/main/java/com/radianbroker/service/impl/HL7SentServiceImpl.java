@@ -290,6 +290,12 @@ public class HL7SentServiceImpl implements HL7SentService {
             }
             Ris ris = risRepository.getRisById(risId);
             Patient patient = patientRepository.findByPatientId(patientId);
+
+            if (patient==null)
+            {
+                throw new ResourceNotFoundException("Patient not found for patientId: " + patientId);
+            }
+            
             hl7SentDTO.setRisCode(ris.getRisCode());
             hl7SentDTO.setPid(patient.getPid());
             hl7SentDTO.setPatientName(patient.getLastName() + ", " + patient.getFirstName());
