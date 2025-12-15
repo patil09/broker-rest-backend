@@ -1,7 +1,5 @@
 package com.radianbroker.controller;
 
-
-import com.radianbroker.entity.Mip;
 import com.radianbroker.exceptions.CustomExceptionHandler;
 import com.radianbroker.service.MipService;
 import org.springframework.beans.factory.annotation.Autowired;
