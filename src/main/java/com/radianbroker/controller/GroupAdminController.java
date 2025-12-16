@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.radianbroker.exceptions.ResourceNotFoundException;
@@ -26,9 +27,10 @@ public class GroupAdminController {
 
 	@PreAuthorize("hasAnyRole('ROLE_GROUPADMIN')")
 	@GetMapping("/mips")
-	public ResponseEntity<?> getActiveAllowedMips(@CookieValue(name = "SESSIONROLE", required = true) String sessionRole) {
+	public ResponseEntity<?> getActiveAllowedMips(@CookieValue(name = "SESSIONROLE", required = true) String sessionRole,
+			@RequestParam(value = "risId", required = true) Long risId) {
 		try {
-			return new ResponseEntity<>(mipService.getActiveAllowedMips(sessionRole), HttpStatus.OK);
+			return new ResponseEntity<>(mipService.getActiveAllowedMips(sessionRole,risId), HttpStatus.OK);
 		} catch (ResourceNotFoundException e) {
 			logger.error("Error found: {}", e);
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
