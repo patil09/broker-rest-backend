@@ -55,7 +55,7 @@ public class MipServiceImpl implements MipService {
 	}
 
 	@Override
-	public List<MipsProjection> getActiveAllowedMips(String sessionRole) {
+	public List<MipsProjection> getActiveAllowedMips(String sessionRole,Long risId) {
 
 	    Long userId = userDetailsService.getCurrentAuditor().getId();
 	    Roles role = Roles.of(sessionRole);
@@ -79,7 +79,7 @@ public class MipServiceImpl implements MipService {
 	                );
 
 	            Long groupId = group.getGroupId();
-	            mips = mipRepository.findForGroupAdminByGroupId(groupId);
+	            mips = mipRepository.findForGroupAdminByGroupId(groupId,risId);
 	            break;
 
 	        default:

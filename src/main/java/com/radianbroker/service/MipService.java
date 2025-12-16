@@ -9,6 +9,6 @@ public interface MipService {
 
 	List<Mip> getMips(Long risId)throws Exception;
 
-	 List<MipsProjection> getActiveAllowedMips(String sessionRole);
+	 List<MipsProjection> getActiveAllowedMips(String sessionRole,Long risId);
 
 }
